@@ -1,4 +1,4 @@
-const { add, sub, mul, div } = require('../calculator-lib');
+const { add, sub, mul, div, mod, pow, sqrt } = require('../calculator-lib');
 
 describe('Calculator library - basic operations', () => {
   test('add 2 + 3 === 5', () => {
@@ -17,15 +17,38 @@ describe('Calculator library - basic operations', () => {
     expect(div(20, 5)).toBe(4);
   });
 
+  test('mod 10 % 3 === 1', () => {
+    expect(mod(10, 3)).toBe(1);
+  });
+
+  test('pow 2 ** 8 === 256', () => {
+    expect(pow(2, 8)).toBe(256);
+  });
+
+  test('sqrt 9 === 3', () => {
+    expect(sqrt(9)).toBe(3);
+  });
+
   test('handles numeric strings', () => {
     expect(add('2', '3')).toBe(5);
     expect(sub('10', '4')).toBe(6);
     expect(mul('6', '7')).toBe(42);
     expect(div('20', '5')).toBe(4);
+    expect(mod('10', '3')).toBe(1);
+    expect(pow('2', '3')).toBe(8);
+    expect(sqrt('16')).toBe(4);
   });
 
   test('division by zero throws', () => {
     expect(() => div(10, 0)).toThrow('Division by zero');
+  });
+
+  test('modulo by zero throws', () => {
+    expect(() => mod(10, 0)).toThrow('Modulo by zero');
+  });
+
+  test('sqrt negative throws', () => {
+    expect(() => sqrt(-1)).toThrow('Square root of negative number');
   });
 
   test('invalid numbers behavior', () => {
