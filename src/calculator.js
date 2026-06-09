@@ -59,34 +59,60 @@ function exitWithError(msg, code = 1) {
   process.exit(code);
 }
 
+// Implementations for additional operations with error handling
+function modulo(x, y) {
+  const na = Number(x);
+  const nb = Number(y);
+  if (!Number.isFinite(na) || !Number.isFinite(nb)) throw new Error('Invalid number');
+  if (nb === 0) throw new Error('Modulo by zero');
+  return na % nb;
+}
+
+function power(base, exponent) {
+  const b = Number(base);
+  const e = Number(exponent);
+  if (!Number.isFinite(b) || !Number.isFinite(e)) throw new Error('Invalid number');
+  return Math.pow(b, e);
+}
+
+function squareRoot(n) {
+  const num = Number(n);
+  if (!Number.isFinite(num)) throw new Error('Invalid number');
+  if (num < 0) throw new Error('Square root of negative number');
+  return Math.sqrt(num);
+}
+
 let result;
-switch (op.toLowerCase()) {
-  case 'add':
-    result = a + b;
-    break;
-  case 'sub':
-    result = a - b;
-    break;
-  case 'mul':
-    result = a * b;
-    break;
-  case 'div':
-    if (b === 0) exitWithError('Error: division by zero', 2);
-    result = a / b;
-    break;
-  case 'mod':
-    if (b === 0) exitWithError('Error: modulo by zero', 2);
-    result = a % b;
-    break;
-  case 'pow':
-    result = Math.pow(a, b);
-    break;
-  case 'sqrt':
-    if (a < 0) exitWithError('Error: square root of negative number', 2);
-    result = Math.sqrt(a);
-    break;
-  default:
-    exitWithError(`Error: unknown operation "${op}". See --help.`, 1);
+try {
+  switch (op.toLowerCase()) {
+    case 'add':
+      result = a + b;
+      break;
+    case 'sub':
+      result = a - b;
+      break;
+    case 'mul':
+      result = a * b;
+      break;
+    case 'div':
+      if (b === 0) exitWithError('Error: division by zero', 2);
+      result = a / b;
+      break;
+    case 'mod':
+      result = modulo(a, b);
+      break;
+    case 'pow':
+      result = power(a, b);
+      break;
+    case 'sqrt':
+      result = squareRoot(a);
+      break;
+    default:
+      exitWithError(`Error: unknown operation "${op}". See --help.`, 1);
+  }
+} catch (err) {
+  // Report error message and exit with non-zero code
+  exitWithError(`Error: ${err.message}`, 2);
 }
 
 // Print numeric result to stdout
