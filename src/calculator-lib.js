@@ -57,4 +57,9 @@ function sqrt(a) {
   return Math.sqrt(n);
 }
 
-module.exports = { add, sub, mul, div, mod, pow, sqrt };
+// Provide aliases for alternate function names expected by some tests/consumers
+function modulo(a, b) { return mod(a, b); }
+function power(base, exponent) { return pow(base, exponent); }
+function squareRoot(n) { return sqrt(n); }
+
+module.exports = { add, sub, mul, div, mod, pow, sqrt, modulo, power, squareRoot };
