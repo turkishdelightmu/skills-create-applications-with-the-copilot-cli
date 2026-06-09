@@ -56,3 +56,16 @@ describe('Calculator library - basic operations', () => {
     expect(() => div('foo', 'bar')).toThrow('Invalid number');
   });
 });
+
+// Additional tests matching the image examples
+test('mod 5 % 2 === 1 (image example)', () => {
+  expect(mod(5, 2)).toBe(1);
+});
+
+test('pow 2 ^ 3 === 8 (image example)', () => {
+  expect(pow(2, 3)).toBe(8);
+});
+
+test('sqrt 16 === 4 (image example)', () => {
+  expect(sqrt(16)).toBe(4);
+});
